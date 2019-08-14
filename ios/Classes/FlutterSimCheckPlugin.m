@@ -11,24 +11,12 @@
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"check_sim_exist" isEqualToString:call.method]) {
-    [self getSimCountryCode:result];
+    result(@(YES));
   } else if ([@"check_is_simulator" isEqualToString:call.method]) {
     result(@(NO));
   } else {
     result(FlutterMethodNotImplemented);
   }
-}
-
-- (void)getSimCountryCode:(FlutterResult)result {
-    CTCarrier *carrier = [[CTTelephonyNetworkInfo new] subscriberCellularProvider];
-    if (carrier != nil) {
-        NSString *countryCode = carrier.isoCountryCode;
-        if (countryCode != nil) {
-            result(@(YES));
-            return;
-        }
-    }
-    result(@(NO));
 }
 
 @end
